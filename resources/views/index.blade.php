@@ -8,6 +8,6 @@
 <body>
 @include('navbar');
 <H2 style="
-        font-size: 100px">HOLA MUNDO</H2>
+        font-size: 100px">HOLA MUNDO numero 2</H2>
 </body>
 </html>
