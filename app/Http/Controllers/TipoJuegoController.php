@@ -20,6 +20,7 @@ class TipoJuegoController extends Controller
             $tipo_juego->portada = str_replace('public/', '', $rutaimagen);
         }
         
+        
         $tipo_juego->fk_categoria = $request->nombre_categoria;
         
         // Guardar el tipo de juego
@@ -41,6 +42,54 @@ class TipoJuegoController extends Controller
         return view('listajuegoporcategoria', compact('juego_por_categoria'));
     }
 
+    public function listajuegos(){
+        $lista_juegos = Tipo_juego::join('categoria', 'tipo_juego.fk_categoria', '=', 'categoria.pk_categoria')
+        ->select('tipo_juego.*' , 'categoria.pk_categoria')
+        ->where('tipo_juego.estatus', '=', '1')
+        ->get();
+        return view('listajuegos', compact("lista_juegos"));
+    }
+
+    public function eliminarjuego($pk_tipo_juego){
+        $dato = Tipo_juego::find($pk_tipo_juego);
+        $dato -> estatus = 0;
+        $dato -> save();
+
+        return redirect(url('/listajuegos'));
+    }
+
+    public function editarjuego($pk_tipo_juego){
+        $editarjuego = Tipo_juego::find($pk_tipo_juego);
+        return view('editarjuego', compact("editarjuego"));
+
+    }
+
+    public function actualizarjuego(Request $request, $pk_tipo_juego) {
+        // Validar los datos del formulario
+        $request->validate([
+            'nuevo_tipo_juego' => 'required|string',
+            'nuevo_portada' => 'required|string',
+            'nuevo_categoria' => 'required|string'
+        ]);
+  
+        // aqui optenemos los datos de la categoria que se va a editar llamandola por el pk
+        $juego = Tipo_juego::find($pk_tipo_juego);
+  
+        // aqui es para actualizar los datos que ese obtubieron del codigo de arriba pa
+        $juego->nombre_tipo_juego = $request->input('nuevo_tipo_juego');
+
+        if ($request->hasFile('nuevo_portada')) {
+            $imagen1 = $request->file('nuevo_portada');
+            $rutaimagen = $imagen1->store('public/images');
+            $juego->portada = str_replace('public/', '', $rutaimagen);
+        }
+        
+        $juego->fk_categoria = $request->input('nuevo_categoria');
+  
+        $juego->save();
+  
+        return redirect(url('/listajuegos'));
+    }
 
     
 }

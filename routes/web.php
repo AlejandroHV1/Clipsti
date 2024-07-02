@@ -5,7 +5,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TipoJuegoController;
 use App\Http\Controllers\ClipController;
 use App\Http\Controllers\UsuarioController;
-
+ 
 Route::get('/', function () {
     return view('index');
 });
@@ -30,6 +30,13 @@ Route::get('/formulariocategoria', function () {
     return view('formulariocategoria');
 });
 
+Route::get('/listacategorias', [CategoriaController::class, 'listacategorias'])->name('categoria.allcategorias');
+
+Route::match(['get', 'post'], '/eliminarcategoria/{pk_categoria}', [CategoriaController::class, 'eliminarcategoria'])->name('categoria.eliminarcategoria');
+
+Route::get('/editarcategoria/{pk_categoria}', [CategoriaController::class, 'editarcategoria'])->name('categoria.editarcategoria');
+Route::post('/actualizarcategoria/{pk_categoria}', [CategoriaController::class, 'actualizarcategoria'])->name('categoria.actualizarcategoria');
+
 
 
 //explorar
@@ -46,7 +53,14 @@ Route::get('/formulariotipojuego', function () {
 
 Route::get('/listajuegoporcategoria/{categoria_id}', [TipoJuegoController::class, 'juegoporcategoria'])->name('tipo_juego.listajuegoporcategoria');
 
-    
+Route::get('/listajuegos', [TipojuegoController::class, 'listajuegos'])->name('tipo_juego.listajuegos');
+
+Route::match(['get', 'post'], '/eliminarjuego/{pk_tipo_juego}', [TipojuegoController::class, 'eliminarjuego'])->name('tipo_juego.eliminarjuego');
+
+Route::get('/editarjuego/{pk_tipo_juego}', [TipojuegoController::class, 'editarjuego'])->name('tipo_juego.editarjuego');
+Route::post('/actualizarjuego/{pk_tipo_juego}', [TipojuegoController::class, 'actualizarjuego'])->name('tipo_juego.actualizarjuego');
+
+
 
 
 
