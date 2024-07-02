@@ -51,7 +51,10 @@
             <a href="{{ url('/formulariotipojuego') }}" class="block px-4 py-2 text-sm bg-slate-950 text-white hover:bg-violet-700 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Agregar Juego</a>
           </li>
           <li>
-            <a href="#" class="block px-4 py-2 text-sm bg-slate-950 text-white hover:bg-violet-700 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Agregar Categoria</a>
+            <a href="{{ url('/listacategorias') }}" class="block px-4 py-2 text-sm bg-slate-950 text-white hover:bg-violet-700 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Lista Categoria</a>
+          </li>
+          <li>
+            <a href="{{ url('/listajuegos') }}" class="block px-4 py-2 text-sm bg-slate-950 text-white hover:bg-violet-700 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Lista Juegos</a>
           </li>
           <li>
             <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm bg-slate-950 text-white hover:bg-violet-700 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
