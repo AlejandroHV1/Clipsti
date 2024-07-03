@@ -7,7 +7,6 @@
 </head>
 <body>
 @include('navbar');
-<H2 style="
-        font-size: 100px">HOLA MUNDO numero 3</H2>
+
 </body>
 </html>
