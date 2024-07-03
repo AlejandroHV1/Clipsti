@@ -104,6 +104,10 @@ Route::get('/iniciarsesion', function () {
 
 Route::get('/logout', [UsuarioController::class, 'logout'])->name('logout');
 
+Route::get('/editarusuario/{pk_usuario}', [UsuarioController::class, 'editarperfil'])->name('usuario.editarusuario');
+Route::post('/actualizarusuario/{pk_usuario}', [UsuarioController::class, 'actualizarusuario'])->name('usuario.actualizarusuario');
+
+
 
 
 

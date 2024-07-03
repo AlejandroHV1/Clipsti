@@ -14,6 +14,7 @@
     <span>{{$dato->password}}</span>
     <h1>videos subidos</h1>
     <span>{{$dato->cantidad_clips}}</span>
+    <a href="{{ route('usuario.editarusuario', $dato->pk_usuario) }}">editar tu perfil</a>
     <a href="{{ url('/clipusuario') }}">ver tus clips</a>
 </body>
 </html>
