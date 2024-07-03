@@ -6,7 +6,7 @@
     <title>Editar juego pa admin esto</title>
 </head>
 <body>
-    <form action=" {{route('tipo_juego.actualizarjuego', $editarjuego->pk_tipo_juego)}}" method="post">
+    <form action=" {{route('tipo_juego.actualizarjuego', $editarjuego->pk_tipo_juego)}}" method="post" enctype="multipart/form-data">
         @csrf
         <input type="text" name="nuevo_tipo_juego" value="{{$editarjuego->nombre_tipo_juego}}">
         <h4>imagen actual</h4>

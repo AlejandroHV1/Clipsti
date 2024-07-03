@@ -61,20 +61,21 @@ class TipoJuegoController extends Controller
     public function editarjuego($pk_tipo_juego){
         $editarjuego = Tipo_juego::find($pk_tipo_juego);
         return view('editarjuego', compact("editarjuego"));
-
     }
 
     public function actualizarjuego(Request $request, $pk_tipo_juego) {
         // Validar los datos del formulario
-        $request->validate([
-            'nuevo_tipo_juego' => 'required|string',
-            'nuevo_portada' => 'required|string',
-            'nuevo_categoria' => 'required|string'
-        ]);
+        //lo quite por pedos de que no agarra la imagen
+        // $request->validate([
+        //     'nuevo_tipo_juego' => 'required|string',
+        //     'nuevo_portada' => 'required|image',
+        //     'nuevo_categoria' => 'required|string'
+        // ]);
   
         // aqui optenemos los datos de la categoria que se va a editar llamandola por el pk
         $juego = Tipo_juego::find($pk_tipo_juego);
   
+        
         // aqui es para actualizar los datos que ese obtubieron del codigo de arriba pa
         $juego->nombre_tipo_juego = $request->input('nuevo_tipo_juego');
 
