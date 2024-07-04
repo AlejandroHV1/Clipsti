@@ -82,3 +82,4 @@ class UsuarioController extends Controller
         return view("perfil",compact("dato"));
     }
 }
+ 

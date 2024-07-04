@@ -120,6 +120,13 @@ class ClipController extends Controller
     
         return view('listaclipsporjuego', compact('clipsporjuego'));
     }
+
+
+    public function visualizarclip($pk_clip){
+        $dato_clip = Clip::find($pk_clip);
+
+        return view('verclip',compact("dato_clip"));
+    }
     
 }
 
