@@ -19,8 +19,9 @@
                 <a href="{{ route('clip.listaclipsporjuego', ['tipo_juego_id' => $dato_juego->pk_tipo_juego]) }}">
                     {{ $dato_juego->nombre_tipo_juego }}
                 </a>
-
-                <img src="{{ Storage::url($dato_juego->portada) }}" alt="no se cargo la imagen">
+                <div >
+                <img style=" max-height: 200px;" src="{{ asset('storage/' . $dato_juego->portada) }}" alt="no se cargo la imagen">
+                </div>
             </div>
         @endforeach
 </body>

@@ -86,6 +86,7 @@ Route::match(['get', 'post'], '/desbloquearclip/{pkclip}', [ClipController::clas
 
 Route::get('/listaclipsporjuego/{tipo_juego_id}', [ClipController::class, 'clipporjuego'])->name('clip.listaclipsporjuego');
 
+Route::get('/verclip/{pk_clip}', [ClipController::class, 'visualizarclip'])->name('clip.verclip');
 
 
 

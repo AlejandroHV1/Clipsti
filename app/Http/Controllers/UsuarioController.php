@@ -109,3 +109,4 @@ class UsuarioController extends Controller
     }
 
 }
+ 
