@@ -10,6 +10,7 @@
         .video-js {
             width: 100%;
             max-width: 900px;
+            height: 520px;
             margin: 0 auto;
             border-radius: 10px;
         }
@@ -51,5 +52,16 @@
             <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
         </p>
     </video>
+
+    <form action="{{ route('comentario.agregarcomentario') }}" method="POST">
+        @csrf
+        <input type="hidden" name="pk_clip" value="{{ $dato_clip->pk_clip }}">
+        <input name="comentario" type="text" placeholder="Agrega un comentario">
+        <button type="submit">Agregar Comentario</button>
+    </form>
+
+    @foreach ($dato_comentario as $dato)
+    <p>{{ $dato->nombre_com }}</p>
+    @endforeach
 </body>
 </html>
