@@ -1,5 +1,5 @@
 <?php
-
+ 
 use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
@@ -115,7 +115,6 @@ Route::post('/actualizarusuario/{pk_usuario}', [UsuarioController::class, 'actua
 //comentarios
 Route::post('/agregarcomentario', [ComentarioController::class, 'agregarcomentario'])->name('comentario.agregarcomentario');
 
-Route::get('/vercomentarios', [ComentarioController::class, 'vercomentarios'])->name('comentario.vercomentarios');
 
 //nabvar
 Route::get('/navbar', function () {

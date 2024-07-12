@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('user', 50);
-            $table->integer('cantidad_clips')->nullable();
+            $table->integer('cantidad_clips');
             $table->smallInteger('estatus');
             $table->unsignedBigInteger('fk_tipo_usuario');
             $table->foreign('fk_tipo_usuario')->references('pk_tipo_usuario')->on('tipo_usuario');

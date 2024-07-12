@@ -3,65 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://vjs.zencdn.net/5.4.6/video-js.min.css" rel="stylesheet">
-    <script src="https://vjs.zencdn.net/5.4.6/video.min.js"></script>
-    <title>Visualizador de Clips</title>
-    <style>
-        .video-js {
-            width: 100%;
-            max-width: 900px;
-            height: 520px;
-            margin: 0 auto;
-            border-radius: 10px;
+    @vite('resources/css/app.css')
+    @vite(['resources/css/ap.css','resources/js/app.js'])
+  <script>
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        const message = event.target.value;
+        if (message.trim() !== "") {
+          const commentsSection = document.getElementById('comments');
+          const newComment = document.createElement('div');
+          newComment.classList.add('flex', 'items-start', 'space-x-2', 'mt-2');
+          newComment.innerHTML = `
+            <div class="bg-gray-700 rounded-full h-8 w-8 flex items-center justify-center text-gray-400">
+              <span>U</span>
+            </div>
+            <div>
+              <p class="text-sm"><span class="font-semibold">User:</span> ${message}</p>
+            </div>
+          `;
+          commentsSection.appendChild(newComment);
+          event.target.value = '';
         }
-
-        @media (min-width: 100px) {
-            .video-js {
-                max-width: 400px;
-                max-height: 250px;
-            }
-        }
-
-        @media (min-width: 600px) {
-            .video-js {
-                max-width: 500px;
-                max-height: 350px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .video-js {
-                max-width: 700px;
-                max-height: 410px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .video-js {
-                max-width: 900px;
-                max-height: 520px;
-            }
-        }
-    </style>
+      }
+    }
+  </script>
 </head>
 <body>
-    <video id="my-video" class="video-js" controls preload="auto" data-setup='{ "techOrder": ["html5", "flash"], "autoplay": true, "preload": "auto" }'>
+@include('navbar')
+  <!-- Container -->
+  <div class="container mx-auto p-4 flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
+    
+    <!-- Video Section -->
+    <div class="w-full lg:w-2/3 bg-slate-950 p-4 rounded-lg shadow-lg">
+      <div class="aspect-w-16 aspect-h-9">
+        <video class="w-full h-full" controls>
         <source src="{{ asset('storage/' . $dato_clip->video) }}" type="video/mp4">
-        <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a web browser that
-            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-        </p>
-    </video>
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="mt-4">
+        <h2 class="text-xl font-semibold text-white">Conoce a BUNNY</h2>
+        <p class="text-gray-400">The First Descendants</p>
+      </div>
+    </div>
+    
+    <!-- Comments Section -->
+    <div class="w-full lg:w-1/3 bg-slate-300 p-4 rounded-lg shadow-lg flex flex-col justify-between">
+      <div>
+        <h3 class="text-lg font-semibold mb-4 text-center">Comentarios</h3>
+        <div id="comments" class="space-y-4 overflow-y-scroll h-96 pr-2">
+          <!-- Comment -->
+          @foreach ($dato_comentario as $dato)
+          <div class="flex items-start space-x-2">
+            <div class="bg-gray-700 rounded-full h-8 w-8 flex items-center justify-center text-gray-400">
+              <span>E</span>
+            </div>
+            
+            <div>
+              <p class="text-sm"><span class="font-semibold">{{$dato->user}}</span> {{ $dato->nombre_com }}</p>
+            </div>
+            
+          </div>
+          @endforeach 
+        </div>
+      </div>
+      <div class="mt-4">
+            <form action="{{ route('comentario.agregarcomentario') }}" method="POST">
+                @csrf
+                <input type="hidden" name="pk_clip" value="{{ $dato_clip->pk_clip }}">
+                <input type="text" name="comentario" placeholder="Escribe tu mensaje..." class="w-full bg-gray-700 p-2 rounded-lg text-white focus:outline-none"">
+                <button type="submit"></button>
+            </form>
+         </div>
+    </div>
+  
+  </div>
 
-    <form action="{{ route('comentario.agregarcomentario') }}" method="POST">
-        @csrf
-        <input type="hidden" name="pk_clip" value="{{ $dato_clip->pk_clip }}">
-        <input name="comentario" type="text" placeholder="Agrega un comentario">
-        <button type="submit">Agregar Comentario</button>
-    </form>
 
-    @foreach ($dato_comentario as $dato)
-    <p>{{ $dato->nombre_com }}</p>
-    @endforeach
+
+
+    
 </body>
 </html>

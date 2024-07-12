@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Comentario;
 use App\Models\Usuario;
+use App\Models\Clip;
 
 use Illuminate\Http\Request;
 
@@ -21,16 +22,6 @@ class ComentarioController extends Controller
 
         return redirect(url('/verclip/'.$request->pk_clip));
     }
-
-    public function vercomentarios(){
-        
-        $dato_comentario = Comentario::join('clip', 'comentario.fk_clip', '=', 'clip.pk_clip')
-            ->join('usuario', 'comentario.fk_usuario', '=', 'usuario.pk_usuario')
-            ->select('comentario.*', 'usuario.*', 'clip.*')
-            ->where('clip.estatus', '=', '1')
-            ->get();
-
-            return view('verclip',compact("dato_comentario"));
-    }
+  
     
 }

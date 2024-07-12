@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Clip;
 use App\Models\Usuario;
 use App\Models\Tipo_juego; 
+use App\Models\Comentario;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -125,7 +126,15 @@ class ClipController extends Controller
     public function visualizarclip($pk_clip){
         $dato_clip = Clip::find($pk_clip);
 
-        return view('verclip',compact("dato_clip"));
+        $dato_comentario = Comentario::join('clip', 'comentario.fk_clip', '=', 'clip.pk_clip')
+            ->join('usuario', 'comentario.fk_usuario', '=', 'usuario.pk_usuario')
+            ->select('comentario.*', 'usuario.*', 'clip.*')
+            ->where('comentario.fk_clip', '=', $pk_clip) 
+            ->where('clip.estatus', '=', '1')
+            ->get();
+
+            return view('verclip', compact('dato_clip', 'dato_comentario'));
+
     }
     
 }
