@@ -55,7 +55,7 @@ class UsuarioController extends Controller
             ->with('error_retry', 'Introduzca sus datos de nuevo')
             ->with('use_js_alerts', true);
         }
-    }
+    } 
 
     private function buscar($nombre, $contraseña)
     {
