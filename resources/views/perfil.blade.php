@@ -43,7 +43,7 @@
             <h2 class="text-2xl font-semibold mb-4">Clips Subidos: {{$dato->cantidad_clips}}</h2>
             <ul class="space-y-4">
                 <a href="{{ url('/clipusuario') }}">
-                <li href="" class="bg-gray-700 p-4 rounded-lg shadow-md cursor-pointer"  onclick="toggleClipList()">Ver Clips Subidos</li>
+                <li href="" class="bg-gray-700 p-4 rounded-lg shadow-md cursor-pointer"  ">Ver Clips Subidos</li>
                 </a>
             </ul>
         </div>

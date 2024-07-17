@@ -120,3 +120,7 @@ Route::post('/agregarcomentario', [ComentarioController::class, 'agregarcomentar
 Route::get('/navbar', function () {
     return view('navbar');
 });
+
+Route::get('/partialnavbar', function () {
+    return view('partialnavbar');
+});

@@ -5,28 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     @vite(['resources/css/ap.css','resources/js/app.js'])
-  <script>
-    function handleKeyPress(event) {
-      if (event.key === 'Enter') {
-        const message = event.target.value;
-        if (message.trim() !== "") {
-          const commentsSection = document.getElementById('comments');
-          const newComment = document.createElement('div');
-          newComment.classList.add('flex', 'items-start', 'space-x-2', 'mt-2');
-          newComment.innerHTML = `
-            <div class="bg-gray-700 rounded-full h-8 w-8 flex items-center justify-center text-gray-400">
-              <span>U</span>
-            </div>
-            <div>
-              <p class="text-sm"><span class="font-semibold">User:</span> ${message}</p>
-            </div>
-          `;
-          commentsSection.appendChild(newComment);
-          event.target.value = '';
-        }
-      }
-    }
-  </script>
 </head>
 <body>
 @include('navbar')

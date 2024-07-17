@@ -51,7 +51,9 @@
   <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="select_file">Seleccionar Archivo</label>
   <input name="clip" class="block w-full text-sm text-gray-900 border  border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="select_file_help" id="select_file" type="file">
   <br>
+  <div style="display: flex; justify-content: center;">
     <button type="submit" class="bg-gray-700 text-center text-white p-4 rounded-lg shadow-md cursor-pointer">Subir Clip</button>
+  </div>
 </form>
 </body>
 </html>
