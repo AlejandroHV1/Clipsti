@@ -160,7 +160,7 @@ class ClipController extends Controller
                 ->select('clip.*', 'usuario.user') 
                 ->where('clip.estatus', 1)
                 ->orderByDesc('clip.pk_clip')
-                ->limit(12)
+                ->limit(6)
                 ->get();
 
             return view('index', compact('clips_carrusel' , 'clips_index'));

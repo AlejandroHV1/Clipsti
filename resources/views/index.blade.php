@@ -66,14 +66,16 @@
         <!-- Item  -->
         @foreach ($clips_carrusel as $dato)
         <a href="{{ route('clip.verclip', ['pk_clip' => $dato->pk_clip]) }}">
+        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
+        
             <video id="myVideo" class="w-full h-full" autoplay muted controls>
                 <source src="{{ asset('storage/' . $dato->video) }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <div class="carousel-card">
                 <div class="carousel-card-title">{{ $dato->nombre_clip }}</div>
-                <div class="carousel-card-user">{{ $dato->user }}</div>
+                <div class="carousel-card-user">Subido por: {{ $dato->user }}</div>
             </div>
         </div>
         </a>
@@ -104,8 +106,8 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     @foreach ($clips_index as $dato)
     <a href="{{ route('clip.verclip', ['pk_clip' => $dato->pk_clip]) }}">
-        <div class="shadow-md rounded-lg overflow-hidden bg-gradient-to-t from-blue-900 to-slate-800">
-            <video id="video_{{ $dato->pk_clip }}" class="w-full h-full" autoplay muted>
+        <div class="shadow-md rounded-lg overflow-hidden bg-gradient-to-t from-blue-900 to-slate-800 relative" style="width: 100%; padding-top: 56.25%;">
+            <video id="video_{{ $dato->pk_clip }}" class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted>
                 <source src="{{ asset('storage/' . $dato->video) }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -230,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var video_{{ $dato->pk_clip }} = document.getElementById('video_{{ $dato->pk_clip }}');
 
         video_{{ $dato->pk_clip }}.addEventListener('timeupdate', function() {
-            if (video_{{ $dato->pk_clip }}.currentTime >= 1) {
+            if (video_{{ $dato->pk_clip }}.currentTime >= 3) {
                 video_{{ $dato->pk_clip }}.currentTime = 0; // Reinicia el video al inicio después de 1 segundo
                 video_{{ $dato->pk_clip }}.play(); // Reproduce el video automáticamente
             }
