@@ -20,15 +20,11 @@ class TipoJuegoController extends Controller
             $tipo_juego->portada = str_replace('public/', '', $rutaimagen);
         }
         
-        
         $tipo_juego->fk_categoria = $request->nombre_categoria;
         
-        // Guardar el tipo de juego
         $tipo_juego->save();
         
-
-        
-        return redirect(url('/'))->with('success', 'El tipo de juego a sido agregada correctamente');
+        return response()->json(['mensaje' => 'Juego agregado correctamente']);
     }
 
     public function juegoporcategoria($obtenercategoria) { 

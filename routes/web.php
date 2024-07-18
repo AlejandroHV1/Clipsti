@@ -7,9 +7,7 @@ use App\Http\Controllers\TipoJuegoController;
 use App\Http\Controllers\ClipController;
 use App\Http\Controllers\UsuarioController;
  
-Route::get('/', function () {
-    return view('index');
-});
+// la routa principal se usó en las rutas de "clips"
 
 Route::middleware([
     'auth:sanctum',
@@ -45,7 +43,7 @@ Route::get('/explorar', [CategoriaController::class, 'mostrarcategorias'])->name
 
 
 
-
+ 
 //tipo juego
 Route::post('/formulariotipojuego', [TipoJuegoController::class, 'insertartipojuego'])->name('tipo_juego.insertartipojuego');
 Route::get('/formulariotipojuego', function () {
@@ -66,6 +64,8 @@ Route::post('/actualizarjuego/{pk_tipo_juego}', [TipojuegoController::class, 'ac
 
 
 //clips
+route::get('/', [ClipController::class, 'verclipcarrusel'])->name('clip.clipcarrusel');
+
 Route::post('/formularioclips', [ClipController::class, 'insertarclip'])->name('clip.insertarclip');
 Route::get('/formularioclips', function () {
     return view('formularioclip');
@@ -88,6 +88,7 @@ Route::match(['get', 'post'], '/desbloquearclip/{pkclip}', [ClipController::clas
 Route::get('/listaclipsporjuego/{tipo_juego_id}', [ClipController::class, 'clipporjuego'])->name('clip.listaclipsporjuego');
 
 Route::get('/verclip/{pk_clip}', [ClipController::class, 'visualizarclip'])->name('clip.verclip');
+
 
 
 
@@ -114,6 +115,7 @@ Route::post('/actualizarusuario/{pk_usuario}', [UsuarioController::class, 'actua
 
 //comentarios
 Route::post('/agregarcomentario', [ComentarioController::class, 'agregarcomentario'])->name('comentario.agregarcomentario');
+
 
 
 //nabvar

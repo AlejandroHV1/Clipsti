@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Cache; 
+use Illuminate\Support\Facades\DB;
 use App\Models\Clip;
 use App\Models\Usuario;
 use App\Models\Tipo_juego; 
@@ -38,7 +40,7 @@ class ClipController extends Controller
                 $usuario->save();
             }
 
-        return redirect(url('/'))->with('success', 'clip agregado correctamente');
+        return response()->json(['mensaje' => 'Clip subido, Ve a verlo en tu perfil!!!']);
     }
 
     public function clipporusuario(){
@@ -136,6 +138,35 @@ class ClipController extends Controller
             return view('verclip', compact('dato_clip', 'dato_comentario'));
 
     }
+
+
+    //esto es apra que sea aleatorio
+    public function verclipcarrusel()
+        {
+            $cacheKey = 'clips_carrusel';
+            $cacheDuration = 60 * 60 * 24; // 24 horas
+
+            $clips_carrusel = Cache::store('file')->remember($cacheKey, $cacheDuration, function () {
+                return Clip::join('usuario', 'clip.fk_usuario', '=', 'usuario.pk_usuario')
+                    ->select('clip.*', 'usuario.user')
+                    ->where('clip.estatus', 1)
+                    ->inRandomOrder()
+                    ->limit(3)
+                    ->get();
+            });
+
+            // para mostrar lo demas del index
+            $clips_index = Clip::join('usuario', 'clip.fk_usuario', '=', 'usuario.pk_usuario') 
+                ->select('clip.*', 'usuario.user') 
+                ->where('clip.estatus', 1)
+                ->orderByDesc('clip.pk_clip')
+                ->limit(12)
+                ->get();
+
+            return view('index', compact('clips_carrusel' , 'clips_index'));
+        }
+
     
+
 }
 

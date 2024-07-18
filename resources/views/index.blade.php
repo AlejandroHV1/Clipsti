@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   @vite('resources/css/app.css')
-  @vite(['resources/css/ap.css','resources/js/app.js'])
+  @vite(['resources/css/app.css','resources/js/app.js'])
   <style>
     .carousel-container {
       max-width: 800px;
@@ -47,6 +47,7 @@
     .carousel-card-user {
       font-size: 14px;
     }
+
   </style>
   <script>
     function toggleVideos() {
@@ -62,39 +63,21 @@
 <div id="controls-carousel" class="relative w-full carousel-container" data-carousel="static">
     <!-- Carousel wrapper -->
     <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-        <!-- Item 1 -->
+        <!-- Item  -->
+        @foreach ($clips_carrusel as $dato)
+        <a href="{{ route('clip.verclip', ['pk_clip' => $dato->pk_clip]) }}">
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <video class="w-full h-full" autoplay muted controls>
-                <source src="{{ asset('videos/MeetBunny.mp4') }}" type="video/mp4">
+            <video id="myVideo" class="w-full h-full" autoplay muted controls>
+                <source src="{{ asset('storage/' . $dato->video) }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <div class="carousel-card">
-                <div class="carousel-card-title">Título de la Imagen 1</div>
-                <div class="carousel-card-user">Subido por: Usuario1</div>
+                <div class="carousel-card-title">{{ $dato->nombre_clip }}</div>
+                <div class="carousel-card-user">{{ $dato->user }}</div>
             </div>
         </div>
-        <!-- Item 2 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-            <video class="w-full h-full" autoplay muted controls>
-                <source src="{{ asset('videos/Devorador.mp4') }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="carousel-card">
-                <div class="carousel-card-title">Título de la Imagen 2</div>
-                <div class="carousel-card-user">Subido por: Usuario2</div>
-            </div>
-        </div>
-        <!-- Item 3 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <video class="w-full h-full" autoplay muted controls>
-                <source src="{{ asset('videos/halov2.mp4') }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="carousel-card">
-                <div class="carousel-card-title">Título del Video</div>
-                <div class="carousel-card-user">Subido por: Usuario3</div>
-            </div>
-        </div>
+        </a>
+        @endforeach
     </div>
     <!-- Slider controls -->
     <button type="button" class="absolute top-1/2 start-0 z-30 carousel-button-prev" data-carousel-prev>
@@ -116,46 +99,25 @@
 </div>
 <br>
 <br>
-<div class="text-5xl text-gray-300 text-center">Clips que te pueden gustar</div>
+<div class="text-5xl text-gray-300 text-center">Ultimos clips Agregados</div>
 <div class="container mx-auto p-4">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <!-- video 1 -->
-        <div class="shadow-md rounded-lg overflow-hidden bg-gradient-to-t from-blue-900 to to-slate-800">
-            <video class="w-full h-90" controls>
-                <source src="{{ asset('videos/halov1.mp4') }}" type="video/mp4">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    @foreach ($clips_index as $dato)
+    <a href="{{ route('clip.verclip', ['pk_clip' => $dato->pk_clip]) }}">
+        <div class="shadow-md rounded-lg overflow-hidden bg-gradient-to-t from-blue-900 to-slate-800">
+            <video id="video_{{ $dato->pk_clip }}" class="w-full h-full" autoplay muted>
+                <source src="{{ asset('storage/' . $dato->video) }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <div class="p-4">
-                <h2 class="text-lg text-white font-semibold">EL PRONITE</h2>
-                <p class="text-gray-300">BY: ITZ_MaNy</p>
+            <div class="p-4 absolute bottom-0 left-0 right-0 bg-black bg-opacity-50">
+                <h2 class="text-lg text-white font-semibold">{{ $dato->nombre_clip }}</h2>
+                <p class="text-gray-300">Subido por: {{ $dato->user }}</p>
                 <div class="flex justify-end space-x-2 mt-4"></div>
             </div>
         </div>
-        <!-- video 2 -->
-        <div class="bg-gradient-to-t from-blue-900 to to-slate-800 shadow-md rounded-lg overflow-hidden">
-            <video class="w-full h-90" controls>
-                <source src="{{ asset('videos/Chivalry.mp4') }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="p-4">
-                <h2 class="text-lg text-white font-semibold">Gano la world cup</h2>
-                <p class="text-gray-300">Yo soy el mejor del mundo de fortnite</p>
-                <div class="flex justify-end space-x-2 mt-4"></div>
-            </div>
-        </div>
-        <!-- video 3 -->
-        <div class="bg-gradient-to-t from-blue-900 to to-slate-800 shadow-md rounded-lg overflow-hidden">
-            <video class="w-full h-90" controls>
-                <source src="{{ asset('videos/lego.mp4') }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="p-4">
-                <h2 class="text-lg text-white font-semibold">LVL 100</h2>
-                <p class="text-gray-300">Llegué Al Nivel 100 de Backrooms Y Es Terrible</p>
-                <div class="flex justify-end space-x-2 mt-4"></div>
-            </div>
-        </div>
-    </div>
+    </a>
+    @endforeach
+</div>
     <div class="flex justify-center mt-6">
         <button class="px-4 py-2 bg-blue-500 text-white rounded" onclick="toggleVideos()">Mostrar más videos</button>
     </div>
@@ -200,7 +162,7 @@
 </div>
 <div class="p-4">
   <a href="#" class="block text-2xl font-bold mb-4 text-white hover:text-violet-500 cursor-pointer">
-  <h2>Categorías</h2>
+  <h2>Juegos</h2>
 </a>
 
     
@@ -249,6 +211,33 @@
 </div>
 
 
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var video = document.getElementById('myVideo');
+
+  video.addEventListener('loadedmetadata', function() {
+    // Aquí puedes realizar acciones adicionales una vez que el video esté listo, por ejemplo:
+    console.log('Metadata cargada, el video está listo.');
+  });
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @foreach ($clips_index as $dato)
+        var video_{{ $dato->pk_clip }} = document.getElementById('video_{{ $dato->pk_clip }}');
+
+        video_{{ $dato->pk_clip }}.addEventListener('timeupdate', function() {
+            if (video_{{ $dato->pk_clip }}.currentTime >= 1) {
+                video_{{ $dato->pk_clip }}.currentTime = 0; // Reinicia el video al inicio después de 1 segundo
+                video_{{ $dato->pk_clip }}.play(); // Reproduce el video automáticamente
+            }
+        });
+        @endforeach
+    });
+</script>
 
 </body>
 </html>

@@ -19,7 +19,7 @@ class CategoriaController extends Controller
         $categoria -> save();
 
         
-        return redirect(url('/'))->with('success', 'Categoria agregada correctamente');
+        return response()->json(['mensaje' => 'Categoría agregada correctamente']);
     }
 
     public function mostrarcategorias(){
