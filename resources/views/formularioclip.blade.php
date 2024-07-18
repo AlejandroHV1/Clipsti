@@ -83,7 +83,7 @@
   <input name="clip" id="clip" class="block w-full text-sm text-gray-900 border  border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="select_file_help" id="select_file" type="file">
   <br>
   <div style="display: flex; justify-content: center;">
-    <button type="submit" class="bg-gray-700 text-center text-white p-4 rounded-lg shadow-md cursor-pointer">Subir Clip</button>
+    <button id='submitButton' type="submit" class="bg-gray-700 text-center text-white p-4 rounded-lg shadow-md cursor-pointer">Subir Clip</button>
   </div>
 </form>
 
@@ -100,6 +100,9 @@
         $('#formclip').submit(function(event) {
             event.preventDefault();
 
+            //esto deactiva el botn caundo le das
+            $('#submitButton').prop('disabled', true);
+
             // para forms con archivos es diferente aqui como lo hice a comparaciond de categoria
 
             var formData = new FormData();  
@@ -112,7 +115,7 @@
             formData.append('clip', $('#clip')[0].files[0]); // Agregar archivo
 
 
-            $.ajax({
+            $.ajax({ 
                 url: '{{ route('clip.insertarclip') }}',
                 method: 'POST',
 
@@ -125,9 +128,11 @@
                     $('#mensajeNotificacion').text(response.mensaje);
                     $('#cuadroNotificacion').fadeIn().delay(3000).fadeOut();
                     $('#formclip')[0].reset();
+                    $('#submitButton').prop('disabled', false); 
                 },
                 error: function(xhr, status, error) {
                     console.error('Error en la solicitud AJAX:', error);
+                    $('#submitButton').prop('disabled', false);
                 }
             });
         });
