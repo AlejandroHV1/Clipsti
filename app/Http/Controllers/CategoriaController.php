@@ -16,10 +16,10 @@ class CategoriaController extends Controller
         $categoria->estatus = 1;
         $categoria->descripcion_cat = $request->descripcion_categoria;   
         
-        $categoria -> save();
+        $categoria -> save(); 
 
         
-        return redirect(url('/'))->with('success', 'Categoria agregada correctamente');
+        return response()->json(['mensaje' => 'Categoría agregada correctamente']);
     }
 
     public function mostrarcategorias(){

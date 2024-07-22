@@ -14,6 +14,7 @@ class UsuarioController extends Controller
         $usuario -> email=$request->correo;
         $usuario -> password=$request->contrasena;
         $usuario -> user=$request->usuario;
+        $usuario -> cantidad_clips = 0;
         $usuario -> estatus = 1;
         $usuario -> fk_tipo_usuario = 2;
 
@@ -55,7 +56,7 @@ class UsuarioController extends Controller
             ->with('error_retry', 'Introduzca sus datos de nuevo')
             ->with('use_js_alerts', true);
         }
-    }
+    } 
 
     private function buscar($nombre, $contraseña)
     {
