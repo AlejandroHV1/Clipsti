@@ -121,7 +121,7 @@ class ClipController extends Controller
             ->where('estatus', 1)
             ->get();
     
-        return view('listaclipsporjuego', compact('clipsporjuego'));
+        return view('listaclipsporjuego', compact('clipsporjuego', 'juego'));
     }
 
 
@@ -166,7 +166,34 @@ class ClipController extends Controller
             return view('index', compact('clips_carrusel' , 'clips_index'));
         }
 
-    
+    public function editarclip($pk_clip){
+        $dato_clip = Clip::find($pk_clip);
+
+        $dato_fks = Clip::join('categoria', 'clip.fk_categoria', '=', 'categoria.pk_categoria')
+        ->join('tipo_juego', 'clip.fk_tipojuego', '=', 'tipo_juego.pk_tipo_juego')
+        ->select('clip.*', 'categoria.*', 'tipo_juego.*');
+        return view('editarclip', compact('dato_clip', 'dato_fks'));
+    }
+
+    public function actualizarclip(Request $request, $pk_clip){
+        $clip_editar = Clip::find($pk_clip);
+
+        $clip_editar->nombre_clip = $request->input ('nuevo_nombre_clip');
+        $clip_editar->descripcion_clip = $request->input ('nuevo_descripcion_clip');
+
+        if ($request->hasFile('nuevo_clip')) {
+            $nuevo_clip_file = $request->file('nuevo_clip');
+            $nuevo_rutavideo = $nuevo_clip_file->store('public/videos');
+            $clip_editar->video = str_replace('public/', '', $nuevo_rutavideo);
+        }
+
+        $clip_editar->fk_categoria = $request->input ('nuevo_categoria');
+        $clip_editar->fk_tipojuego = $request->input ('nuevo_tipojuego');
+
+        $clip_editar->save();
+
+        return redirect(url('/clipusuario'));
+    }
 
 }
 

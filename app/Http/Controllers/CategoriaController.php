@@ -16,7 +16,7 @@ class CategoriaController extends Controller
         $categoria->estatus = 1;
         $categoria->descripcion_cat = $request->descripcion_categoria;   
         
-        $categoria -> save();
+        $categoria -> save(); 
 
         
         return response()->json(['mensaje' => 'Categoría agregada correctamente']);

@@ -89,6 +89,9 @@ Route::get('/listaclipsporjuego/{tipo_juego_id}', [ClipController::class, 'clipp
 
 Route::get('/verclip/{pk_clip}', [ClipController::class, 'visualizarclip'])->name('clip.verclip');
 
+Route::get('/editarclip/{pk_clip}', [ClipController::class, 'editarclip'])->name('clip.editarclip');
+Route::post('/actualizarclip/{pk_clip}', [ClipController::class, 'actualizarclip'])->name('clip.actualizarclip');
+
 
 
 

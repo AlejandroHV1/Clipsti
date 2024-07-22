@@ -58,7 +58,7 @@
                             <option option value="" disabled selected>Categoria del juego</option>
                             @php
                                     use App\Models\Categoria;
-                                    $datos_categoria = Categoria::all();
+                                    $datos_categoria = Categoria::select('categoria.*')->where('estatus', '=', '1')->get();
                             @endphp
 
                             @foreach ($datos_categoria as $dato)
@@ -71,7 +71,7 @@
                             <option value="" disabled selected>Selecciona el juego</option>
                             @php
                                     use App\Models\Tipo_juego;
-                                    $dato_tipojuego = Tipo_juego::all();
+                                    $dato_tipojuego = Tipo_juego::select('tipo_juego.*')->where('estatus', '=', '1')->get();
                             @endphp
 
                             @foreach ($dato_tipojuego as $datotipojuego)

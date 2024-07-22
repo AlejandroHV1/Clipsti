@@ -40,7 +40,7 @@ class TipoJuegoController extends Controller
 
     public function listajuegos(){
         $lista_juegos = Tipo_juego::join('categoria', 'tipo_juego.fk_categoria', '=', 'categoria.pk_categoria')
-        ->select('tipo_juego.*' , 'categoria.pk_categoria')
+        ->select('tipo_juego.*' , 'categoria.pk_categoria', 'categoria.nombre_cat')
         ->where('tipo_juego.estatus', '=', '1')
         ->get();
         return view('listajuegos', compact("lista_juegos"));

@@ -11,17 +11,32 @@
 <br>
 <div class="text-5xl text-gray-300 text-center">Tus Clips Privados</div>
 <div class="container mx-auto p-4">
+
+<div class="text-center mb-4">
+    <a href="{{ url('/clipusuario') }}" class="bg-gray-500 text-white px-4 py-2 rounded">
+        Ver Clips publicos
+    </a>
+</div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Thumbnail 1 -->
         @foreach ($dato_clipsocultos as $clips)
             <div class=" shadow-md rounded-lg overflow-hidden bg-gradient-to-t from-blue-900 to to-slate-800">
                 <a href="{{ route('clip.verclip', ['pk_clip' => $clips->pk_clip]) }}">
-                <img src="ruta-a-tu-imagen-1.jpg" alt="Thumbnail 1" class="w-full h-48 object-cover">
+                <div class="shadow-md rounded-lg overflow-hidden bg-gradient-to-t from-blue-900 to-slate-800">
+                    <!-- Contenedor con relación de aspecto 16:9 -->
+                    <div class="relative" style="padding-top: 56.25%; /* 16:9 aspect ratio */">
+                        <video class="absolute inset-0 w-full h-full object-cover" controls muted>
+                            <source src="{{ asset('storage/' . $clips->video) }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
                 <div class="p-4">
                     <h2 class="text-lg text-white font-semibold">{{$clips->nombre_clip}}</h2>  
                     <p class="text-gray-300 ">{{$clips->descripcion_clip}}</p>
                     <div class="flex justify-end space-x-2 mt-4">
-                        <a href="" data-method="post" class="bg-blue-500 text-white px-3 py-1 rounded"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <a href="{{ route('clip.editarclip', $clips->pk_clip) }}" data-method="post" class="bg-blue-500 text-white px-3 py-1 rounded"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                             <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
                             </svg>
