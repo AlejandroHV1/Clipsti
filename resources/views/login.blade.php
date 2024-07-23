@@ -68,12 +68,13 @@ label {
   background: #eee;
   border-radius: 30% / 5%;
   transform: translateY(5%);
-  transition: .8s ease-in-out;
+  transition: .3s ease-in-out;
 }
 
 .register label {
   color: #573b8a;
   transform: scale(.6);
+  margin-top: -10px;
 }
 
 #chk:checked ~ .register {
@@ -110,6 +111,9 @@ label {
     </style>
 </head>
 <body>
+  @include('partialnavbar')
+  <br>
+  <br>
 <div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
 

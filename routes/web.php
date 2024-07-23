@@ -1,14 +1,13 @@
 <?php
-
+ 
+use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TipoJuegoController;
 use App\Http\Controllers\ClipController;
 use App\Http\Controllers\UsuarioController;
-
-Route::get('/', function () {
-    return view('index');
-});
+ 
+// la routa principal se usó en las rutas de "clips"
 
 Route::middleware([
     'auth:sanctum',
@@ -30,6 +29,13 @@ Route::get('/formulariocategoria', function () {
     return view('formulariocategoria');
 });
 
+Route::get('/listacategorias', [CategoriaController::class, 'listacategorias'])->name('categoria.allcategorias');
+
+Route::match(['get', 'post'], '/eliminarcategoria/{pk_categoria}', [CategoriaController::class, 'eliminarcategoria'])->name('categoria.eliminarcategoria');
+
+Route::get('/editarcategoria/{pk_categoria}', [CategoriaController::class, 'editarcategoria'])->name('categoria.editarcategoria');
+Route::post('/actualizarcategoria/{pk_categoria}', [CategoriaController::class, 'actualizarcategoria'])->name('categoria.actualizarcategoria');
+
 
 
 //explorar
@@ -37,7 +43,7 @@ Route::get('/explorar', [CategoriaController::class, 'mostrarcategorias'])->name
 
 
 
-
+ 
 //tipo juego
 Route::post('/formulariotipojuego', [TipoJuegoController::class, 'insertartipojuego'])->name('tipo_juego.insertartipojuego');
 Route::get('/formulariotipojuego', function () {
@@ -46,11 +52,20 @@ Route::get('/formulariotipojuego', function () {
 
 Route::get('/listajuegoporcategoria/{categoria_id}', [TipoJuegoController::class, 'juegoporcategoria'])->name('tipo_juego.listajuegoporcategoria');
 
-    
+Route::get('/listajuegos', [TipojuegoController::class, 'listajuegos'])->name('tipo_juego.listajuegos');
+
+Route::match(['get', 'post'], '/eliminarjuego/{pk_tipo_juego}', [TipojuegoController::class, 'eliminarjuego'])->name('tipo_juego.eliminarjuego');
+
+Route::get('/editarjuego/{pk_tipo_juego}', [TipojuegoController::class, 'editarjuego'])->name('tipo_juego.editarjuego');
+Route::post('/actualizarjuego/{pk_tipo_juego}', [TipojuegoController::class, 'actualizarjuego'])->name('tipo_juego.actualizarjuego');
+
+
 
 
 
 //clips
+route::get('/', [ClipController::class, 'verclipcarrusel'])->name('clip.clipcarrusel');
+
 Route::post('/formularioclips', [ClipController::class, 'insertarclip'])->name('clip.insertarclip');
 Route::get('/formularioclips', function () {
     return view('formularioclip');
@@ -72,6 +87,11 @@ Route::match(['get', 'post'], '/desbloquearclip/{pkclip}', [ClipController::clas
 
 Route::get('/listaclipsporjuego/{tipo_juego_id}', [ClipController::class, 'clipporjuego'])->name('clip.listaclipsporjuego');
 
+Route::get('/verclip/{pk_clip}', [ClipController::class, 'visualizarclip'])->name('clip.verclip');
+
+Route::get('/editarclip/{pk_clip}', [ClipController::class, 'editarclip'])->name('clip.editarclip');
+Route::post('/actualizarclip/{pk_clip}', [ClipController::class, 'actualizarclip'])->name('clip.actualizarclip');
+
 
 
 
@@ -90,10 +110,22 @@ Route::get('/iniciarsesion', function () {
 
 Route::get('/logout', [UsuarioController::class, 'logout'])->name('logout');
 
+Route::get('/editarusuario/{pk_usuario}', [UsuarioController::class, 'editarperfil'])->name('usuario.editarusuario');
+Route::post('/actualizarusuario/{pk_usuario}', [UsuarioController::class, 'actualizarusuario'])->name('usuario.actualizarusuario');
+
+
+
+
+//comentarios
+Route::post('/agregarcomentario', [ComentarioController::class, 'agregarcomentario'])->name('comentario.agregarcomentario');
 
 
 
 //nabvar
 Route::get('/navbar', function () {
     return view('navbar');
+});
+
+Route::get('/partialnavbar', function () {
+    return view('partialnavbar');
 });

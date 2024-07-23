@@ -14,6 +14,7 @@ class UsuarioController extends Controller
         $usuario -> email=$request->correo;
         $usuario -> password=$request->contrasena;
         $usuario -> user=$request->usuario;
+        $usuario -> cantidad_clips = 0;
         $usuario -> estatus = 1;
         $usuario -> fk_tipo_usuario = 2;
 
@@ -55,7 +56,7 @@ class UsuarioController extends Controller
             ->with('error_retry', 'Introduzca sus datos de nuevo')
             ->with('use_js_alerts', true);
         }
-    }
+    } 
 
     private function buscar($nombre, $contraseña)
     {
@@ -81,4 +82,32 @@ class UsuarioController extends Controller
         $dato = usuario::select('usuario.*')->where('pk_usuario', $pkdelusuario)->first();;
         return view("perfil",compact("dato"));
     }
+
+    public function editarperfil($pk_usuario){
+        $editarusuario = Usuario::find($pk_usuario);
+        return view('editarusuario', compact("editarusuario"));
+
+    }
+
+    public function actualizarusuario(Request $request, $pk_usuario) {
+        // Validar los datos del formulario
+        $request->validate([
+            'nuevo_usuario' => 'required|string',
+            'nuevo_correo' => 'required|string'
+        ]);
+  
+        // aqui optenemos los datos de la categoria que se va a editar llamandola por el pk
+        $usuario = Usuario::find($pk_usuario);
+  
+        // aqui es para actualizar los datos que ese optubieron del codigo de arriba pa
+        $usuario->user = $request->input('nuevo_usuario');
+        $usuario->email = $request->input('nuevo_correo');
+  
+        $usuario->save();
+  
+        // Redirigir a la página de lista de instituciones o a donde desees
+        return redirect(url('/vermiperfil'));
+    }
+
 }
+ 
