@@ -93,6 +93,11 @@
     <span id="mensajeNotificacion"></span>
 </div>
 
+<div id="cuadrofallido">
+    <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <span id="">No se subio el clip</span>
+</div>
+
 <!-- script de la notificacion -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -132,6 +137,7 @@
                 },
                 error: function(xhr, status, error) {
                     console.error('Error en la solicitud AJAX:', error);
+                    $('#cuadrofallido').fadeIn().delay(3000).fadeOut();
                     $('#submitButton').prop('disabled', false);
                 }
             });
