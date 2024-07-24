@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('comentario', function (Blueprint $table) {
             $table->id('pk_comentario')->autoIncrement();
-            $table->string('nombre_com', 500);
+            $table->string('nombre_com', 1000);
             $table->unsignedBigInteger('fk_usuario');
             $table->unsignedBigInteger('fk_clip');
             $table->foreign('fk_clip')->references('pk_clip')->on('clip');

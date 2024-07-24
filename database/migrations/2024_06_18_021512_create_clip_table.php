@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('clip', function (Blueprint $table) {
             $table->id('pk_clip')->autoIncrement();
-            $table->string('nombre_clip', 100);
+            $table->string('nombre_clip', 500);
             $table->integer('estatus');
             $table->string('video', 100);
-            $table->string('descripcion_clip', 100);
+            $table->string('descripcion_clip', 1000);
             $table->unsignedBigInteger('fk_tipojuego');
             $table->foreign('fk_tipojuego')->references('pk_tipo_juego')->on('tipo_juego');
             $table->unsignedBigInteger('fk_categoria');

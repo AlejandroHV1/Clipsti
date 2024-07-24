@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('pk_usuario')->autoIncrement();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('user', 50);
+            $table->string('user', 100);
             $table->integer('cantidad_clips');
             $table->smallInteger('estatus');
             $table->unsignedBigInteger('fk_tipo_usuario');

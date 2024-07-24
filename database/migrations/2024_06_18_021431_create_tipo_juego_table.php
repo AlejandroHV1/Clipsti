@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('tipo_juego', function (Blueprint $table) {
             $table->id('pk_tipo_juego')->autoIncrement();
-            $table->string('nombre_tipo_juego', 20);
+            $table->string('nombre_tipo_juego', 100);
             $table->integer('estatus');
-            $table->string('portada', 100);
+            $table->string('portada', 500);
             $table->unsignedBigInteger('fk_categoria');
             $table->foreign('fk_categoria')->references('pk_categoria')->on('categoria');
             $table->timestamps();
