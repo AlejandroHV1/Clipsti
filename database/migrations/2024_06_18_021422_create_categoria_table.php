@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('pk_categoria')->autoIncrement();
             $table->string('nombre_cat', 30);
             $table->integer('estatus');
-            $table->string('descripcion_cat', 100);
+            $table->string('descripcion_cat', 1000);
             $table->timestamps();
         });
     }
