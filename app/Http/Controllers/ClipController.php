@@ -34,7 +34,7 @@ class ClipController extends Controller
         $clip->fk_usuario = session('id');
         $clip->save();
 
-        $usuario = usuario::find(session('id'));
+        $usuario = Usuario::find(session('id'));
             if ($usuario) {
                 $usuario->cantidad_clips += 1;
                 $usuario->save();
@@ -51,19 +51,19 @@ class ClipController extends Controller
         $usuario = usuario::where('pk_usuario', $pkdelusuario)->first();
 
         //el get es para los foreach
-        $dato = clip::join('usuario', 'clip.fk_usuario', '=', 'usuario.pk_usuario')
+        $dato = Clip::join('usuario', 'clip.fk_usuario', '=', 'usuario.pk_usuario')
             ->select('clip.*','usuario.user')->where('clip.estatus', '=', '1')
             ->where('usuario.pk_usuario', $pkdelusuario)->get();
         return view('clipsusuario',compact("dato", "usuario"));
     }
 
     public function eliminarclip($pk_clip){
-        $dato = clip::find($pk_clip);
+        $dato = Clip::find($pk_clip);
         $dato -> estatus=0;
         $dato -> save();
         
 
-        $usuario = usuario::find(session('id'));
+        $usuario = Usuario::find(session('id'));
             if ($usuario) {
                 $usuario->cantidad_clips -= 1;
                 $usuario->save();
@@ -73,7 +73,7 @@ class ClipController extends Controller
     }
 
     public function ocultarclip($pk_clip){
-        $dato = clip::find($pk_clip);
+        $dato = Clip::find($pk_clip);
         $dato -> estatus=2;
         $dato -> save();
 
@@ -84,19 +84,19 @@ class ClipController extends Controller
         $pkdelusuario = session('id');
 
         //el get es para los foreach
-        $dato_clipsocultos = clip::join('usuario', 'clip.fk_usuario', '=', 'usuario.pk_usuario')
+        $dato_clipsocultos = Clip::join('usuario', 'clip.fk_usuario', '=', 'usuario.pk_usuario')
             ->select('clip.*','usuario.user')->where('clip.estatus', '=', '2')
             ->where('usuario.pk_usuario', $pkdelusuario)->get();
         return view('clipsocultos',compact("dato_clipsocultos"));
     }
 
     public function eliminarclip2($pk_clip){
-        $dato = clip::find($pk_clip);
+        $dato = Clip::find($pk_clip);
         $dato -> estatus=0;
         $dato -> save();
         
 
-        $usuario = usuario::find(session('id'));
+        $usuario = Usuario::find(session('id'));
             if ($usuario) {
                 $usuario->cantidad_clips -= 1;
                 $usuario->save();
@@ -106,7 +106,7 @@ class ClipController extends Controller
     }
 
     public function desocultarclip($pk_clip){
-        $dato = clip::find($pk_clip);
+        $dato = Clip::find($pk_clip);
         $dato -> estatus=1;
         $dato -> save();
 

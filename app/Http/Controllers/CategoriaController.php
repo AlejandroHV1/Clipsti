@@ -24,7 +24,7 @@ class CategoriaController extends Controller
 
     public function mostrarcategorias(){
 
-        $dato_categorias = categoria::select('categoria.*')
+        $dato_categorias = Categoria::select('categoria.*')
         ->where('estatus', '=', '1')->get();
         
 
@@ -36,14 +36,14 @@ class CategoriaController extends Controller
     }
 
     public function listacategorias(){
-        $todo_categorias = categoria::select('categoria.*')
+        $todo_categorias = Categoria::select('categoria.*')
         ->where('estatus', '=', '1')
         ->get();
         return view('listacategorias', compact("todo_categorias"));
     }
 
     public function eliminarcategoria($pk_categoria){
-        $dato = categoria::find($pk_categoria);
+        $dato = Categoria::find($pk_categoria);
         $dato -> estatus = 0;
         $dato -> save();
 
@@ -51,7 +51,7 @@ class CategoriaController extends Controller
     }
 
     public function editarcategoria($pk_categoria){
-        $editarcategoria = categoria::find($pk_categoria);
+        $editarcategoria = Categoria::find($pk_categoria);
         return view('editarcategoria', compact("editarcategoria"));
 
     }

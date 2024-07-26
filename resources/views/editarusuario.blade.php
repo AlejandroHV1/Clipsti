@@ -15,7 +15,7 @@
         
         <div class="mb-5">
         <label for="username" class="block mb-2 text-lg text-blue-500 font-medium">Nuevo nombre</label>
-        <input name="nuevo_usuario" value="{{$editarusuario->email}}" id="username" type="text" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base" placeholder="Nuevo nombre">
+        <input name="nuevo_usuario" value="{{$editarusuario->user}}" id="username" type="text" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base" placeholder="Nuevo nombre">
     </div>
 
         <div class="mb-5">

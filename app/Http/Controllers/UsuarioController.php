@@ -79,7 +79,7 @@ class UsuarioController extends Controller
 
     public function mostrarperfil(){
         $pkdelusuario = session('id');
-        $dato = usuario::select('usuario.*')->where('pk_usuario', $pkdelusuario)->first();;
+        $dato = Usuario::select('usuario.*')->where('pk_usuario', $pkdelusuario)->first();;
         return view("perfil",compact("dato"));
     }
 
